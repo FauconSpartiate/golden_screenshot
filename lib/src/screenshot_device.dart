@@ -11,76 +11,90 @@ enum GoldenScreenshotDevices {
   /// The size fits Flathub's guidelines for screenshots
   /// (https://docs.flathub.org/docs/for-app-authors/metainfo-guidelines/quality-guidelines/#reasonable-window-size)
   /// while also being a 16:9 aspect ratio for Google Play.
-  flathub(ScreenshotDevice(
-    platform: TargetPlatform.linux,
-    resolution: Size(1920, 1080),
-    pixelRatio: 1.5,
-    goldenSubFolder: 'tenInchScreenshots/',
-    frameBuilder: ScreenshotFrame.noFrame,
-  )),
+  flathub(
+    ScreenshotDevice(
+      platform: TargetPlatform.linux,
+      resolution: Size(1920, 1080),
+      pixelRatio: 1.5,
+      goldenSubFolder: 'tenInchScreenshots/',
+      frameBuilder: ScreenshotFrame.noFrame,
+    ),
+  ),
 
   /// An Android phone based on the Pixel 6 Pro.
-  android(ScreenshotDevice(
-    platform: TargetPlatform.android,
-    resolution: Size(1440, 3120),
-    pixelRatio: 10 / 3,
-    goldenSubFolder: 'phoneScreenshots/',
-    frameBuilder: ScreenshotFrame.android,
-  )),
+  android(
+    ScreenshotDevice(
+      platform: TargetPlatform.android,
+      resolution: Size(1440, 3120),
+      pixelRatio: 10 / 3,
+      goldenSubFolder: 'phoneScreenshots/',
+      frameBuilder: ScreenshotFrame.android,
+    ),
+  ),
 
   /// A MacBook Pro (15-inch, 2019)
   /// with a "scaled resolution" of 1440x900.
-  macbook(ScreenshotDevice(
-    platform: TargetPlatform.macOS,
-    resolution: Size(2880, 1800),
-    pixelRatio: 2,
-    goldenSubFolder: 'macbookScreenshots/',
-    frameBuilder: ScreenshotFrame.noFrame,
-  )),
+  macbook(
+    ScreenshotDevice(
+      platform: TargetPlatform.macOS,
+      resolution: Size(2880, 1800),
+      pixelRatio: 2,
+      goldenSubFolder: 'macbookScreenshots/',
+      frameBuilder: ScreenshotFrame.noFrame,
+    ),
+  ),
 
   /// iPhone 5.5" Display (the one with a home button)
   /// based on the iPhone 8 Plus.
-  olderIphone(ScreenshotDevice(
-    platform: TargetPlatform.iOS,
-    resolution: Size(1242, 2208),
-    pixelRatio: 3,
-    goldenSubFolder: 'olderIphoneScreenshots/',
-    frameBuilder: ScreenshotFrame.olderIphone,
-  )),
+  olderIphone(
+    ScreenshotDevice(
+      platform: TargetPlatform.iOS,
+      resolution: Size(1242, 2208),
+      pixelRatio: 3,
+      goldenSubFolder: 'olderIphoneScreenshots/',
+      frameBuilder: ScreenshotFrame.olderIphone,
+    ),
+  ),
 
   /// iPhone 6.9" Display (the one without a home button)
   /// based on the iPhone 16 Pro Max.
-  newerIphone(ScreenshotDevice(
-    platform: TargetPlatform.iOS,
-    resolution: Size(1320, 2868),
-    pixelRatio: 3,
-    goldenSubFolder: 'newerIphoneScreenshots/',
-    frameBuilder: ScreenshotFrame.newerIphone,
-  )),
+  newerIphone(
+    ScreenshotDevice(
+      platform: TargetPlatform.iOS,
+      resolution: Size(1320, 2868),
+      pixelRatio: 3,
+      goldenSubFolder: 'newerIphoneScreenshots/',
+      frameBuilder: ScreenshotFrame.newerIphone,
+    ),
+  ),
 
   /// iPad Pro 12.9" (2nd generation),
   /// labelled on App Store Connect as iPad 12.9" Display.
   ///
   /// This is the older type of iPad with thicker bezels and a home button.
-  olderIpad(ScreenshotDevice(
-    platform: TargetPlatform.iOS,
-    resolution: Size(2048, 2732),
-    pixelRatio: 2,
-    goldenSubFolder: 'olderIpadScreenshots/',
-    frameBuilder: ScreenshotFrame.olderIpad,
-  )),
+  olderIpad(
+    ScreenshotDevice(
+      platform: TargetPlatform.iOS,
+      resolution: Size(2048, 2732),
+      pixelRatio: 2,
+      goldenSubFolder: 'olderIpadScreenshots/',
+      frameBuilder: ScreenshotFrame.olderIpad,
+    ),
+  ),
 
   /// iPad Pro 13" (M4),
   /// labelled on App Store Connect as iPad 13" Display.
   ///
   /// This is the newer type of iPad with thinner bezels and no home button.
-  newerIpad(ScreenshotDevice(
-    platform: TargetPlatform.iOS,
-    resolution: Size(2064, 2752),
-    pixelRatio: 2,
-    goldenSubFolder: 'newerIpadScreenshots/',
-    frameBuilder: ScreenshotFrame.newerIpad,
-  ));
+  newerIpad(
+    ScreenshotDevice(
+      platform: TargetPlatform.iOS,
+      resolution: Size(2064, 2752),
+      pixelRatio: 2,
+      goldenSubFolder: 'newerIpadScreenshots/',
+      frameBuilder: ScreenshotFrame.newerIpad,
+    ),
+  );
 
   const GoldenScreenshotDevices(this.device);
   final ScreenshotDevice device;
@@ -88,8 +102,7 @@ enum GoldenScreenshotDevices {
 
 @Deprecated('Use GoldenScreenshotDevices instead.')
 class ScreenshotDevices {
-  static List<ScreenshotDevice> get values =>
-      GoldenScreenshotDevices.values.map((e) => e.device).toList();
+  static List<ScreenshotDevice> get values => GoldenScreenshotDevices.values.map((e) => e.device).toList();
 }
 
 /// A device whose resolution and pixel ratio will be simulated,
@@ -131,13 +144,10 @@ class ScreenshotDevice {
 
   /// Returns a `matchesGoldenFile` matcher for the relevant golden file.
   AsyncMatcher matchesGoldenFile(String goldenFileName, {String? langCode}) {
-    final screenshotsFolder = ScreenshotDevice.screenshotsFolder
-        .replaceFirst('\$langCode', langCode ?? 'en-US');
+    final screenshotsFolder = ScreenshotDevice.screenshotsFolder.replaceFirst('\$langCode', langCode ?? 'en-US');
 
-    assert(screenshotsFolder.endsWith('/'),
-        'screenshotsFolder must end with a slash: $screenshotsFolder');
-    assert(goldenSubFolder.endsWith('/'),
-        'goldenSubFolder must end with a slash: $goldenSubFolder');
+    assert(screenshotsFolder.endsWith('/'), 'screenshotsFolder must end with a slash: $screenshotsFolder');
+    assert(goldenSubFolder.endsWith('/'), 'goldenSubFolder must end with a slash: $goldenSubFolder');
 
     final goldenFile = '$screenshotsFolder$goldenSubFolder$goldenFileName.png';
     return flutter_test.matchesGoldenFile(goldenFile);
